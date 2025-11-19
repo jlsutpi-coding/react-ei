@@ -5,11 +5,14 @@ import {
   Alarm as TimeIcon,
 } from "@mui/icons-material";
 import { green } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
 
-export default function Item({ item, remove }) {
+export default function Item({ item, remove, primary }) {
+  const navigate = useNavigate();
   return (
     <Card sx={{ mb: 2 }}>
-      <CardContent>
+      {primary && <Box sx={{ height: 50, bgcolor: green[500] }}></Box>}
+      <CardContent onClick={() => navigate("/comments/1")}>
         <Box
           sx={{
             display: "flex",
@@ -30,7 +33,13 @@ export default function Item({ item, remove }) {
               A few second ago
             </Typography>
           </Box>
-          <IconButton onClick={() => remove(item.id)} size="small">
+          <IconButton
+            onClick={(e) => {
+              remove(item.id);
+              e.stopPropagation();
+            }}
+            size="small"
+          >
             <DeleteIcon fontSize="inherit" />
           </IconButton>
         </Box>
