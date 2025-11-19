@@ -22,20 +22,12 @@ export default function Header() {
             <AddIcon />
           </IconButton>
           {mode === "dark" ? (
-            <IconButton>
-              <LightModeIcon
-                color="inherit"
-                edge="end"
-                onClick={() => setMode("light")}
-              />
+            <IconButton onClick={() => setMode("light")}>
+              <LightModeIcon color="inherit" edge="end" />
             </IconButton>
           ) : (
-            <IconButton>
-              <DarkModeIcon
-                color="inherit"
-                edge="end"
-                onClick={() => setMode("dark")}
-              />
+            <IconButton onClick={() => setMode("dark")}>
+              <DarkModeIcon color="inherit" edge="end" />
             </IconButton>
           )}
         </Box>

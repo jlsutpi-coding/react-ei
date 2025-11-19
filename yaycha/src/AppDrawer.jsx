@@ -16,9 +16,9 @@ import {
   PersonAdd as RegisterIcon,
   Login as LoginIcon,
 } from "@mui/icons-material";
-import { useApp } from "../AppContext";
 import { deepPurple } from "@mui/material/colors";
-import List from "./List";
+import { useApp } from "./AppContext";
+import List from "./components/List";
 
 export default function AppDrawer() {
   const { showDrawer, setShowDrawer, auth, setAuth } = useApp();
