@@ -18,9 +18,11 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import LoginIcon from "@mui/icons-material/Login";
 import { deepPurple } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
 
 function AppDrawer() {
   const { auth, setAuth, showDrawer, setShowDrawer } = useApp();
+  const navigate = useNavigate();
   return (
     <Drawer open={showDrawer} onClose={() => setShowDrawer(false)}>
       <Box sx={{ width: 300 }}>
@@ -57,7 +59,7 @@ function AppDrawer() {
         </Box>
         <List>
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate("/")}>
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
@@ -68,7 +70,7 @@ function AppDrawer() {
           {!auth && (
             <>
               <ListItem>
-                <ListItemButton>
+                <ListItemButton onClick={() => navigate("/register")}>
                   <ListItemIcon>
                     <PersonAddIcon />
                   </ListItemIcon>
@@ -77,7 +79,7 @@ function AppDrawer() {
               </ListItem>
 
               <ListItem>
-                <ListItemButton onClick={() => setAuth(!auth)}>
+                <ListItemButton onClick={navigate("/login")}>
                   <ListItemIcon>
                     <LoginIcon />
                   </ListItemIcon>
@@ -89,7 +91,7 @@ function AppDrawer() {
           {auth && (
             <>
               <ListItem>
-                <ListItemButton>
+                <ListItemButton onClick={() => navigate("/profile/1")}>
                   <ListItemIcon>
                     <PersonIcon />
                   </ListItemIcon>
@@ -98,9 +100,9 @@ function AppDrawer() {
               </ListItem>
 
               <ListItem>
-                <ListItemButton onClick={() => setAuth(!auth)}>
+                <ListItemButton onClick={() => setAuth(null)}>
                   <ListItemIcon>
-                    <LogoutIcon style={{ color: "red" }} />
+                    <LogoutIcon color="error" />
                   </ListItemIcon>
                   <ListItemText>Logout</ListItemText>
                 </ListItemButton>

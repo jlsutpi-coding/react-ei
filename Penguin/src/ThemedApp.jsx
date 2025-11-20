@@ -1,14 +1,48 @@
 import { useMemo, useState } from "react";
 import { AppContext } from "./AppContext";
-import App from "./App";
 import { green, grey, purple } from "@mui/material/colors";
-import {
-  createTheme,
-  CssBaseline,
-  Snackbar,
-  ThemeProvider,
-} from "@mui/material";
-import AppDrawer from "./AppDrawer";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Template from "./Template";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Profile from "./pages/Profile";
+import Home from "./pages/Home";
+import Comments from "./pages/Comments";
+import Likes from "./pages/Likes";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Template />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/profile/:id",
+        element: <Profile />,
+      },
+      {
+        path: "/comments/:id",
+        element: <Comments />,
+      },
+      {
+        path: "/likes/:id",
+        element: <Likes />,
+      },
+    ],
+  },
+]);
 
 function ThemedApp() {
   const [mode, setMode] = useState("dark");
@@ -16,6 +50,7 @@ function ThemedApp() {
   const [globalMsg, setGlobalMsg] = useState("");
   const [auth, setAuth] = useState(null);
   const [showDrawer, setShowDrawer] = useState(true);
+
   const theme = useMemo(() => {
     return createTheme({
       palette: {
@@ -30,6 +65,7 @@ function ThemedApp() {
       },
     });
   }, [mode]);
+
   return (
     <ThemeProvider theme={theme}>
       <AppContext.Provider
@@ -46,15 +82,7 @@ function ThemedApp() {
           setShowDrawer,
         }}
       >
-        <App />
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          open={Boolean(globalMsg)}
-          autoHideDuration={6000}
-          onClose={() => setGlobalMsg(null)}
-          message={globalMsg}
-        />
-        <AppDrawer />
+        <RouterProvider router={router} />
       </AppContext.Provider>
       <CssBaseline />
     </ThemeProvider>
