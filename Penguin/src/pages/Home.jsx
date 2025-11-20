@@ -1,17 +1,15 @@
 import { useState } from "react";
-import { useApp } from "./AppContext";
-import { Box, Container } from "@mui/material";
-import Header from "./components/Header";
-import Item from "./components/Item";
-import Form from "./components/Form";
-function App() {
+import { useApp } from "../AppContext";
+import { Box } from "@mui/material";
+import Item from "../components/Item";
+
+function Home() {
   const [data, setData] = useState([
     { id: 3, name: "Jl Sut Pi", content: "Hello World" },
     { id: 2, name: "Arkar Hein", content: "Hey! How are you?" },
     { id: 1, name: "Obito Uchiha", content: "I see" },
   ]);
-  const { showForm, globalMsg, setGlobalMsg } = useApp();
-  console.log(globalMsg, "hi sdlfsdfj;a j;kf;aldjfaof jdiojfad;kj");
+  const { showForm, setGlobalMsg } = useApp();
 
   // remove item form data array
   function removeData(itemId) {
@@ -28,17 +26,14 @@ function App() {
 
   console.log(showForm);
   return (
-    <>
-      <Header />
-      <Container maxWidth="sm" sx={{ mt: 4 }}>
-        {showForm && <Form add={addItem} />}
+    <Box>
+      {showForm && <Form add={addItem} />}
 
-        {data.map((dataItem) => (
-          <Item key={dataItem.id} item={dataItem} remove={removeData} />
-        ))}
-      </Container>
-    </>
+      {data.map((dataItem) => (
+        <Item key={dataItem.id} item={dataItem} remove={removeData} />
+      ))}
+    </Box>
   );
 }
 
-export default App;
+export default Home;
